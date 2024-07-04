@@ -1,9 +1,10 @@
 import pandas as pd
 from langchain_core.documents import  Document
+from langchain_text_splitters import CharacterTextSplitter
 
 
 def dataconveter():
-    product_data = pd.read_csv("../Data/perfume_data.csv")
+    product_data = pd.read_csv("D:\\GEN AI\\Perfume_chatbot\\Data\\perfume_data.csv")
     
     data = product_data[["product_name","description","comment"]]
     
@@ -21,10 +22,18 @@ def dataconveter():
         #Append the object into list
         product_list.append(obj)
         
-    docs = []
+    doces = []
     for entry in product_list:
-        metadata = {"product_name":entry["product_name"]}
-        doc = Document(page_content=entry["description","comment"],metadata= metadata)        
-        docs.append(doc)
+        metadata = {"product_name":entry["product_name"],
+                    "description":entry["description"]}
+        doc = Document(page_content=entry["comment"],metadata= metadata)        
+        doces.append(doc)
+    text_splitter = CharacterTextSplitter(chunk_size=10000, chunk_overlap=200)
+    docs = text_splitter.split_documents(doces)
+    print(docs[0])
     return docs
 
+
+
+if __name__ ==  "__main__":
+    dataconveter()
