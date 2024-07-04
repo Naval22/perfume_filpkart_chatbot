@@ -32,8 +32,3 @@ def dataconveter():
     docs = text_splitter.split_documents(doces)
     print(docs[0])
     return docs
-
-
-
-if __name__ ==  "__main__":
-    dataconveter()

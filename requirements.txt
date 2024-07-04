@@ -9,5 +9,6 @@ together
 langchain_ai21
 langchain-community
 langchain-qdrant
+langchain-google-genai
 
--e .
+# -e .
