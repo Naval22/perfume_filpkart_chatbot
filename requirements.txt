@@ -10,5 +10,5 @@ langchain_ai21
 langchain-community
 langchain-qdrant
 langchain-google-genai
-
+langchain-huggingface
 # -e .

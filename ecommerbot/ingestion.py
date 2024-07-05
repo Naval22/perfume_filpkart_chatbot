@@ -1,25 +1,32 @@
-from ecommerbot.data_converter import dataconveter
+from ecommerbot.data_converter import data
 import pandas
 import os
 import getpass
 from dotenv import load_dotenv
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
+
 from langchain_qdrant import Qdrant
 from together import Together
 
-os.environ["GOOGLE_API_KEY"] = getpass("")
+# os.environ["GOOGLE_API_KEY"] = getpass("")
 
 TOGETHER_API_KEY = os.getenv("TOGETHER_API_KEY")
 # os.environ["TOGETHER_API_KEY"] = TOGETHER_API_KEY
 
-AI21_API_KEY = os.getenv("mTypqGXPZj2t13dFCiFdd263zZLiBySW")
+Huggingface_API = os.getenv("Huggingface_API")
 
-os.environ["AI21_API_KEY"] = AI21_API_KEY
+# os.environ["AI21_API_KEY"] = AI21_API_KEY
 
 Qdrant_api = os.getenv("Qdrant")
 url_qdrant = os.getenv("url_qdrant")
 
-embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+
+embeddings = HuggingFaceEmbeddings(
+    model_name="jinaai/jina-embeddings-v2-base-en",
+    model_kwargs={'device': 'cpu'},
+    encode_kwargs={'normalize_embeddings': False},
+    api_key = Huggingface_API,
+)
 
 def ingestdata(status):
     vstore = Qdrant.from_documents(
